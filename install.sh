@@ -4,8 +4,13 @@
 #
 # Usage:
 #   curl -fsSL https://raw.githubusercontent.com/dokioco/with-secrets/main/install.sh | bash
+#   curl -fsSL https://raw.githubusercontent.com/dokioco/with-secrets/main/install.sh | INSTALL_CHAMBER=1 bash
 #   ./install.sh                # from a checkout
 #   PREFIX=/usr/local sudo ./install.sh
+#
+# NOTE: when piping into bash, env vars must be set on the bash side of the pipe,
+# e.g. `curl ... | INSTALL_CHAMBER=1 bash`, NOT `INSTALL_CHAMBER=1 curl ... | bash`
+# (the latter sets the var only for curl).
 #
 # Env vars:
 #   PREFIX          install prefix (default: $HOME/.local)
@@ -59,7 +64,9 @@ if ! command -v chamber >/dev/null 2>&1; then
         ;;
     esac
   else
-    warn "To install chamber automatically, re-run with INSTALL_CHAMBER=1"
+    warn "To install chamber automatically, re-run with INSTALL_CHAMBER=1, e.g.:"
+    warn "  curl -fsSL <install-url> | INSTALL_CHAMBER=1 bash"
+    warn "  (note: the env var must go on the bash side of the pipe)"
     warn "Or see: https://github.com/segmentio/chamber"
   fi
 fi

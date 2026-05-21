@@ -30,8 +30,11 @@ curl -fsSL https://raw.githubusercontent.com/dokioco/with-secrets/main/install.s
 Or with chamber + awscli bundled in:
 
 ```sh
-INSTALL_CHAMBER=1 curl -fsSL https://raw.githubusercontent.com/dokioco/with-secrets/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/dokioco/with-secrets/main/install.sh | INSTALL_CHAMBER=1 bash
 ```
+
+Note: the env var must go on the `bash` side of the pipe. `INSTALL_CHAMBER=1 curl ... | bash`
+sets the var only for `curl`, so the install script won't see it.
 
 This drops `with-secrets` into `~/.local/bin`. Make sure that's on your `PATH`:
 
